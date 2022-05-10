@@ -7,6 +7,7 @@ created by fristzzz (wxy in HITSZ)
 ```
 git clone https://github.com/fristzzz/ezname.git
 cd ezname
+go env -w GO111MODULE=auto
 go build .
 ```
 即可通过
