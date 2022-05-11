@@ -65,24 +65,26 @@ $ ./ezname.exe add`)
 	fmt.Println("switch work dir to ", path)
 
 	//raname
+	var (
+		newName, oldName string
+		id               []byte
+		ext              string = filepath.Ext(oldName)
+		idReg                   = regexp.MustCompile(`\d{9}`)
+	)
+
 	files, err := os.ReadDir(path)
 	if err != nil {
 		fmt.Println("Read path failed, check the path, err: ", err)
 		return
 	}
-	var (
-		newName, oldName string
-	)
-	idReg := regexp.MustCompile(`\d{9}`)
 	for i := 0; i < len(files); i++ {
 		oldName = files[i].Name()
-		fmt.Println("old name found:", oldName)
-		ext := filepath.Ext(oldName)
-
-		id := idReg.Find([]byte(oldName))
+		id = idReg.Find([]byte(oldName))
 		newName = GetName(students, string(id), form)
-		fmt.Println("new name:", newName)
+
+		fmt.Println("old name found:", oldName+ext)
 		os.Rename(oldName, newName+ext)
+		fmt.Println("new name:", newName)
 	}
 }
 
