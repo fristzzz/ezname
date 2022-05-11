@@ -66,9 +66,8 @@ $ ./ezname.exe add`)
 
 	//raname
 	var (
-		newName, oldName string
+		newName, oldName, ext string
 		id               []byte
-		ext              string = filepath.Ext(oldName)
 		idReg                   = regexp.MustCompile(`\d{9}`)
 	)
 
@@ -80,6 +79,7 @@ $ ./ezname.exe add`)
 	for i := 0; i < len(files); i++ {
 		oldName = files[i].Name()
 		id = idReg.Find([]byte(oldName))
+		ext = filepath.Ext(oldName)
 		newName = GetName(students, string(id), form)
 
 		fmt.Println("old name found:", oldName+ext)
